@@ -1,4 +1,6 @@
-abstract class HouseBuilder {
+import { winterHouseModel, summerHouseModel } from "./model"
+
+export abstract class HouseBuilder {
 	public abstract reset(): void;
 	public abstract setFloorPlan(type: string): void;
 	public abstract setToiletType(type: string): void;
@@ -6,23 +8,7 @@ abstract class HouseBuilder {
 	public abstract setHaveGarage(type: boolean): void;
 }
 
-interface winterHouseModel {
-	floorPlan: string,
-	toiletType: string,
-	color: string,
-	haveBasement: boolean,
-	haveGarage: boolean,
-}
-
-interface summerHouseModel {
-	floorPlan: string,
-	toiletType: string,
-	color: string,
-	haveBasement: boolean,
-	haveGarage: boolean,
-}
-
- class SummerHouse {
+class SummerHouse {
 	floorPlan: string
 	toiletType: string
 	color: string
@@ -30,30 +16,17 @@ interface summerHouseModel {
 	haveGarage: boolean
  }
 
- class WinterHouse {
+
+class WinterHouse {
 	floorPlan: string
 	toiletType: string
 	color: string
 	haveBasement: boolean
 	haveGarage: boolean
- }
 
-class Director {
-	public constructSummerHouse(builder: HouseBuilder) {
-		builder.reset();
-		builder.setFloorPlan("2ldk")
-		builder.setToiletType("和式")
-		builder.setHaveGarage(false)
-	}
-	public constructWinterHouse(builder: HouseBuilder) {
-		builder.reset();
-		builder.setFloorPlan("1d")
-		builder.setToiletType("洋式")
-		builder.setHaveGarage(true)
-	}
 }
 
-class WinterHouseBuilder extends HouseBuilder {
+export class WinterHouseBuilder extends HouseBuilder {
 	private house: winterHouseModel;
 	constractor() {
 		this.reset();
@@ -79,7 +52,7 @@ class WinterHouseBuilder extends HouseBuilder {
 }
 
 
-class SummerHouseBuilder extends HouseBuilder {
+export class SummerHouseBuilder extends HouseBuilder {
 	private house: summerHouseModel;
 	constractor() {
 		this.reset();
@@ -103,13 +76,3 @@ class SummerHouseBuilder extends HouseBuilder {
 		return {...this.house};
 	}
 }
-
-const director = new Director();
-const summerBuilder = new SummerHouseBuilder();
-director.constructSummerHouse(summerBuilder)
-const summberHouse = summerBuilder.getSummerHouse();
-console.log(summberHouse.floorPlan)
-
-
-// constructWinterHouse("footerPlan","toiletType","color",true,true)
-// constructSummerHouse("footerPlan","toiletType",null,true,true)
