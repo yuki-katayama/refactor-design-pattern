@@ -1,3 +1,7 @@
+// 既存のクラスを複数組み合わせて使う手順を、「窓口」となるクラスを作ってシンプルに利用できるようにするパターン
+// 複雑なサブシステムに対して外側で限定的でわかりやすいインターフェースが必要な場合に機能へのショートカットを提供する役割
+// 読みはファサードでフランス語を語源とする単語で「建物の正面」という意味。
+
 class PlumbingSystem {
 	// low evel access to plubming system
 	setPressure(v: number) {}
@@ -12,7 +16,7 @@ class PlumbingSystem {
 	turnOff() {}
   }
   
-  class House {
+  class Facade {
   
 	private plumbing = new PlumbingSystem();
 	private electrical = new ElectricalSystem();
@@ -29,7 +33,11 @@ class PlumbingSystem {
 	  this.electrical.turnOff();
 	}
   }
-  
-  const client = new House();
-  client.turnOnSystems();
-  client.shutDown();
+
+  class Program {
+	static main() {
+		const client = new Facade();
+		client.turnOnSystems();
+		client.shutDown();
+	}
+  }
